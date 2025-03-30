@@ -1,5 +1,7 @@
 # Ingress nightmare
 
+https://github.com/user-attachments/assets/9b755c59-8909-45da-a44b-61dcc8d4c85f
+
 ## Exploit
 
 Customize the variables at the beginning of xpl.py to your environment.
@@ -34,11 +36,6 @@ Wiz blog offers terraform files to deploy the system in AWS. I personally don't 
 ## Run exploit
 
 `python3 xpl.py`
-
-## POC
-
-![](media/Screenshot%20From%202025-03-30%2013-55-19.png)
-![](media/poc.mp4)
 
 ## Notes
 
