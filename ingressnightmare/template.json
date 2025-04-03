@@ -24,7 +24,8 @@
         "namespace": "default",
         "uid": "abcdef12-3456-7890-abcd-ef1234567890",
         "annotations": {
-          "nginx.ingress.kubernetes.io/auth-url": "http://example.com/" 
+          "nginx.ingress.kubernetes.io/auth-url": "http://example.com/#\n\nADSD",
+          "nginx.ingress.kubernetes.io/mirror-target": "https://test.env.com$request_uri"
         }
       },
       "spec": {

